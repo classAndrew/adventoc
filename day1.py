@@ -207,7 +207,7 @@ def ncubed():
                 if a[i] + a[j] + a[k] == 2020:
                     return a[i]*a[j]*a[k]
                     
-
+# slow neat one liner
 # a = next(x*y*z for x in a for y in a for z in a if x+y+z==2020)
 def nsquared():
     memes = set(a)
