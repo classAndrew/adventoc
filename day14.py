@@ -50,7 +50,8 @@ def p2():
                 for subset in range(1<<xcount):
                     #print(subset)
                     copy = list(saddr)
-                    ssub = '0'*(xcount-len(bin(subset)[2:]))+bin(subset)[2:]
+                    ssub = bin(subset)[2:]
+                    ssub = '0'*(xcount-len(ssub))+ssub
                     ptr = 0 
                     for copyi in range(len(copy)):
                         if copy[copyi] == 'X':
@@ -65,5 +66,6 @@ def p2():
     # 0 1 X 0 X X
     #  Y has same effect as X but no sub
     # print(memmap)
-    print(sum(memmap[k] for k in memmap))
-p2()
+    return sum(memmap[k] for k in memmap)
+from timeit import timeit
+print(timeit('p2()', globals=locals(), number=1))
