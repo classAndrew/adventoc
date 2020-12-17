@@ -98,28 +98,27 @@ def p2(n):
                     active += space[i][j][k][l] == '#'
     print(active)
 def p2_fast(a):
-    a.insert(0, list('.'*3))
-    a.append(list('.'*3))
-    a = [['.', *x, '.'] for x in a]
-    pts = {(i,j,0,0): a[i][j]=='#' for i in range(len(a)) for j in range(len(a))}
+    pts = {(0,0,i,j): a[i][j]=='#' for i in range(len(a)) for j in range(len(a))}
     vecs = {*product([-1,0,1], repeat=4)}-{(0,0,0,0)}
     cycle = 0
-    while cycle < 3:
-        copy = dict(pts)
-        for k, v in pts.items():
+    while cycle < 7:
+        copy = {}
+        for k in pts:
             neighbors = 0
             for d in vecs:
-                cand = (sum(x) for x in zip(d, k))
+                # cand = tuple(sum(x) for x in zip(d, k))
+                cand = (k[0]+d[0], k[1]+d[1], k[2]+d[2],k[3]+d[3])
                 if not cand in pts:
                     copy[cand] = 0
                 else:
                     neighbors += pts[cand]
-
-            copy[k] = neighbors==2 or neighbors == 3 if v else neighbors == 3
+            copy[k] = pts[k]
+            if cycle != 0:
+                copy[k] = neighbors==2 or neighbors == 3 if pts[k] else neighbors == 3
         pts = copy
         cycle += 1
     print(sum(pts.values()))
 
 from timeit import timeit
 
-p2_fast(a)
+print(timeit('p2_fast(a)', number=1, globals=locals()))
