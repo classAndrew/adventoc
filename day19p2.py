@@ -18,6 +18,8 @@ for i in range(len(a)):
 
 # returns length. length = 0 means something went wrong (invalid)
 def valid(s, rule, pos):
+    if len(s) <= pos:
+        return 0
     if type(rule) != int:
         return s[pos] == rule
     length = 0
