@@ -7,10 +7,13 @@ with open('input.txt') as f:
         tiles[int(tmp[0][tmp[0].find(' ')+1:-1])] = tmp[1:]
 # edge to id
 edges = {}
+# id to edge
+edge_dat = {k:[]}
 for t in tiles:
     data = tiles[t]
     if not data[0] in edges:
         edges[data[0]] = []
+
     if not data[-1] in edges:
         edges[data[-1]] = []
     left = ''.join(data[i][0] for i in range(10))
@@ -23,6 +26,12 @@ for t in tiles:
     edges[data[-1]].append(t)
     edges[left].append(t)
     edges[right].append(t)
-print(edges)
+# print(edges)
+graph = {k:[0,0,0,0] for k in tiles}
+def solve(tile_id):
+    for k in tiles:
+        for orient in range(4):
+            if graph[tile_id][orient]:
+                continue
 
 
